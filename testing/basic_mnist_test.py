@@ -26,8 +26,8 @@ entity.fit(x_train, x_train,
            validation_data=(x_test, x_test))
 
 
-encoded_imgs = entity._encoder(x_test).numpy()
-decoded_imgs = entity._decoder(encoded_imgs).numpy()
+encoded_imgs = entity._encoder(x_test[:10]).numpy()
+decoded_imgs = entity._decoder(encoded_imgs[:10]).numpy()
 n = 10
 plt.figure(figsize=(20, 4))
 for i in range(n):
