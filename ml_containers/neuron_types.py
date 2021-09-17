@@ -2,7 +2,7 @@
 # from tensorflow.keras.layers import Dense, Flatten, InputLayer, Reshape
 import numpy as np
 from keras import Model, Sequential
-from keras.layers import Dense, Flatten, InputLayer, Reshape, Conv2D, Conv2DTranspose
+from keras.layers import Dense, Flatten, InputLayer, Reshape, Conv2D
 
 
 class PathNeuron(Model):
@@ -33,10 +33,10 @@ class InputNeuron(Model):
             [
                 InputLayer(observation.shape),
                 # Conv2D(16, (3, 3), 2),
-                Conv2D(16, (3, 3), 2),
-                Conv2D(32, (3, 3), 2),
-                Conv2D(256, (3, 3), 2),
-                Conv2D(512, (3, 3), 2),
+                Conv2D(16, (3, 3), 2, activation='relu'),
+                Conv2D(128, (3, 3), 2, activation='relu'),
+                Conv2D(256, (3, 3), 2, activation='relu'),
+                Conv2D(512, (3, 3), 2, activation='relu'),
                 Flatten(),
                 Dense(1024, activation='relu'),
                 Dense(512, activation='relu'),
@@ -49,11 +49,6 @@ class InputNeuron(Model):
                 Dense(256, activation='sigmoid'),
                 Dense(512, activation='sigmoid'),
                 Dense(1024, activation='sigmoid'),
-                Reshape((256, 2, 2)),
-                Conv2DTranspose(512, (3, 3), 2),
-                Conv2DTranspose(256, (3, 3), 2),
-                Conv2DTranspose(32, (3, 3), 2),
-                Conv2DTranspose(16, (3, 3), 2),
                 Dense(np.prod(observation.shape), activation='sigmoid'),
                 Reshape(observation.shape)
             ]
